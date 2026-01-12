@@ -11,7 +11,6 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Hardcoded users
     const users = [
       { username: "merchant1", password: "Merchant@123", role: "MERCHANT" },
       { username: "support1", password: "Support@123", role: "SUPPORT" },
@@ -24,10 +23,8 @@ const Login = () => {
       return;
     }
 
-    // Store user temporarily in localStorage
     localStorage.setItem("user", JSON.stringify(user));
 
-    // Redirect based on role
     if (user.role === "MERCHANT") navigate("/merchant-dashboard");
     else if (user.role === "SUPPORT") navigate("/support");
   };
@@ -41,10 +38,10 @@ const Login = () => {
         <button type="submit">Login</button>
       </form>
       <p>
-        Don't have an account? <span className="link">Register here</span>
+        Don't have an account? <span className="link" onClick={() => navigate("/register")}>Register here</span>
       </p>
     </div>
   );
 };
 
-export default Login;
+export default Login;  
