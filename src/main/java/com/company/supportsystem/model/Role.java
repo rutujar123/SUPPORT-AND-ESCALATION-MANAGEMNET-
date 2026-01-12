@@ -1,7 +1,7 @@
 package com.company.supportsystem.model;
 
 public enum Role {
-       MerCHANT,
+       MERCHANT,
 	  SUPPORT,
 	 ADMIN
 	
