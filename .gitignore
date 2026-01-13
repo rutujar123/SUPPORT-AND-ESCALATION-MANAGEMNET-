@@ -31,3 +31,16 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# Eclipse
+.metadata/
+.classpath
+.project
+.settings/
+
+# Maven
+target/
+
+# Logs
+*.log
