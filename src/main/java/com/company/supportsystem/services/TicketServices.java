@@ -1,6 +1,7 @@
 package com.company.supportsystem.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,6 +47,21 @@ public class TicketServices {
         // assignedSupport intentionally NULL
         ticket.setAssignedSupport(null);
 
+        
         return ticketRepo.save(ticket);
+        
+       
     }
+    public List<Ticket> getAllTicketsForMerchant(String username) {
+
+        User merchant = userRepo.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Merchant not found"));
+
+        if (merchant.getRole() != Role.MerCHANT) {
+            throw new RuntimeException("Only MERCHANT can view tickets");
+        }
+
+        return ticketRepo.findByMerchant(merchant);
+    }
+
 }

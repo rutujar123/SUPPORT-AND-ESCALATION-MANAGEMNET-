@@ -39,7 +39,7 @@ public class AuthService {
         }
 
        
-        if (user.getRole() != Role.SUPPORT && user.getRole() != Role.MerCHANT) {
+        if (user.getRole() != Role.SUPPORT && user.getRole() != Role.MerCHANT&& user.getRole()!=Role.ADMIN) {
             throw new RuntimeException("User role not allowed to login");
         }
 

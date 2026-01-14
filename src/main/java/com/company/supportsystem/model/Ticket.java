@@ -13,6 +13,7 @@ public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ticket_id")
     private Long ticketId;
 
     // ===== BASIC DETAILS =====
@@ -28,8 +29,17 @@ public class Ticket {
     private String customerEmail;
     private BigDecimal disputedAmount;
     private String reason;
+    private String Bank_name;
 
-    // ===== RELATIONS =====
+    public String getBank_name() {
+		return Bank_name;
+	}
+
+	public void setBank_name(String bank_name) {
+		Bank_name = bank_name;
+	}
+
+	// ===== RELATIONS =====
     @ManyToOne
     @JoinColumn(name = "merchant_id", nullable = false)
     private User merchant;
