@@ -1,81 +1,79 @@
 package com.company.supportsystem.model;
 
 import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
-
 
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
 
-	private String username;
+    private String username;
+    private String password;
 
-	public Long getUserId() {
-		return userId;
-	}
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+    private String status;
+    private LocalDateTime createdAt;
+    private LocalDateTime lastLoginAt;
 
-	public String getUsername() {
-		return username;
-	}
+    public Long getUserId() {
+        return userId;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public Role getRole() {
-		return role;
-	}
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+    public Role getRole() {
+        return role;
+    }
+    
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public String getStatus() {
+        return status;
+    }
+    
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDateTime getLastLoginAt() {
-		return lastLoginAt;
-	}
-
-	public void setLastLoginAt(LocalDateTime lastLoginAt) {
-		this.lastLoginAt = lastLoginAt;
-	}
-
-	private String password;
-
-	@Enumerated(EnumType.STRING)
-	private Role role;
-
-	private String status;
-	private LocalDateTime createdAt;
-	private LocalDateTime lastLoginAt;
+    public LocalDateTime getLastLoginAt() {
+        return lastLoginAt;
+    }
+    
+    public void setLastLoginAt(LocalDateTime lastLoginAt) {
+        this.lastLoginAt = lastLoginAt;
+    }
 }
