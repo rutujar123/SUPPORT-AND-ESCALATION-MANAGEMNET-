@@ -6,6 +6,7 @@ import com.company.supportsystem.dto.RegistrationRequest;
 import com.company.supportsystem.model.RegistrationUser;
 import com.company.supportsystem.services.RegistrationService;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/registration")
 public class RegistrationController {
