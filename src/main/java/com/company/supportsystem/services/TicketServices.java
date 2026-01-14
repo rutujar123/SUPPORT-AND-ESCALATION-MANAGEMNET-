@@ -24,44 +24,39 @@ public class TicketServices {
         this.userRepo = userRepo;
     }
 
+    // ✅ MERCHANT – RAISE TICKET
     public Ticket raiseTicket(String username, Ticket ticket, MultipartFile file) {
 
         User merchant = userRepo.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Merchant not found"));
 
-        if (merchant.getRole() != Role.MerCHANT) {
+        if (merchant.getRole() != Role.MERCHANT) {
             throw new RuntimeException("Only MERCHANT can raise ticket");
         }
 
-        // file handling (simple path save)
         if (file != null && !file.isEmpty()) {
-            String path = "uploads/" + file.getOriginalFilename();
-            ticket.setAttachmentPath(path);
+            ticket.setAttachmentPath("uploads/" + file.getOriginalFilename());
         }
 
         ticket.setMerchant(merchant);
         ticket.setStatus(TicketStatus.NEW);
         ticket.setCreatedAt(LocalDateTime.now());
         ticket.setUpdatedAt(LocalDateTime.now());
-
-        // assignedSupport intentionally NULL
         ticket.setAssignedSupport(null);
 
-        
         return ticketRepo.save(ticket);
-        
-       
     }
+
+    // ✅ MERCHANT – VIEW OWN TICKETS
     public List<Ticket> getAllTicketsForMerchant(String username) {
 
         User merchant = userRepo.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Merchant not found"));
 
-        if (merchant.getRole() != Role.MerCHANT) {
+        if (merchant.getRole() != Role.MERCHANT) {
             throw new RuntimeException("Only MERCHANT can view tickets");
         }
 
         return ticketRepo.findByMerchant(merchant);
     }
-
 }

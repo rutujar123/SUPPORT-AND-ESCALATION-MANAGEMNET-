@@ -1,6 +1,7 @@
 package com.company.supportsystem.services;
 
 import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 
 import com.company.supportsystem.model.Role;
@@ -18,32 +19,25 @@ public class AuthService {
 
     public User login(String username, String password) {
 
-        System.out.println("LOGIN API HIT");
-
-        username = username.trim();
-        password = password.trim();
-
-        User user = userRepo.findByUsername(username)
+        User user = userRepo.findByUsername(username.trim())
                 .orElseThrow(() -> new RuntimeException("Invalid username or password"));
 
-        System.out.println("DB USERNAME = " + user.getUsername());
-        System.out.println("DB ROLE     = " + user.getRole());
-        System.out.println("DB STATUS   = " + user.getStatus());
-
-        if (!user.getPassword().equals(password)) {
+        if (!user.getPassword().equals(password.trim())) {
             throw new RuntimeException("Invalid username or password");
         }
 
-         if (!"ACTIVE".equalsIgnoreCase(user.getStatus())) {
+        if (!"ACTIVE".equalsIgnoreCase(user.getStatus())) {
             throw new RuntimeException("User is inactive");
         }
 
-       
-        if (user.getRole() != Role.SUPPORT && user.getRole() != Role.MerCHANT&& user.getRole()!=Role.ADMIN) {
+        // ✅ allow ADMIN, SUPPORT, MERCHANT
+        if (user.getRole() != Role.ADMIN
+                && user.getRole() != Role.SUPPORT
+                && user.getRole() != Role.MERCHANT) {
+
             throw new RuntimeException("User role not allowed to login");
         }
 
-   
         user.setLastLoginAt(LocalDateTime.now());
         userRepo.save(user);
 
