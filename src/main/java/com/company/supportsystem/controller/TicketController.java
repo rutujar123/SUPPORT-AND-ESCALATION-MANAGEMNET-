@@ -36,7 +36,6 @@ public class TicketController {
         System.out.println("API HIT");
         System.out.println("USERNAME = " + username);
         System.out.println("TICKET JSON = " + ticketJson);
-
         Ticket ticket = objectMapper.readValue(ticketJson, Ticket.class);
 
         return service.raiseTicket(username, ticket, file);

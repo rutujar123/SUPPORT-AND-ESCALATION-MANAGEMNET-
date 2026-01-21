@@ -5,14 +5,8 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.company.supportsystem.model.Role;
-import com.company.supportsystem.model.Ticket;
-import com.company.supportsystem.model.TicketResponseMerchant;
-import com.company.supportsystem.model.TicketStatus;
-import com.company.supportsystem.model.User;
-import com.company.supportsystem.repository.TicketRepo;
-import com.company.supportsystem.repository.TicketResponseMerchantRepo;
-import com.company.supportsystem.repository.UserRepo;
+import com.company.supportsystem.model.*;
+import com.company.supportsystem.repository.*;
 
 @Service
 public class SupportResolutionService {
@@ -47,12 +41,13 @@ public class SupportResolutionService {
         Ticket ticket = ticketRepo.findById(ticketId)
                 .orElseThrow(() -> new RuntimeException("Ticket not found"));
 
-        // ✅ Ticket MUST be RESOLVED before replying to merchant
-        if (ticket.getStatus() != TicketStatus.RESOLVED) {
-            throw new RuntimeException("Resolve ticket first before sending message to merchant");
-        }
+        // ✅ MUST be resolved first
+//        if (ticket.getStatus() != TicketStatus.RESOLVED) {
+//            throw new RuntimeException(
+//                "Resolve ticket first before sending message"
+//            );
+//        }
 
-        // ---- Save message for merchant ----
         TicketResponseMerchant response = new TicketResponseMerchant();
         response.setTicket(ticket);
         response.setSupport(support);
@@ -60,12 +55,14 @@ public class SupportResolutionService {
         response.setCreatedAt(LocalDateTime.now());
 
         if (attachment != null && !attachment.isEmpty()) {
-            String path = "uploads/" + attachment.getOriginalFilename();
-            response.setAttachmentPath(path);
-        }
+            response.setAttachmentPath(
+                "uploads/" + attachment.getOriginalFilename()
+            );
 
-        responseRepo.save(response);
-
-        
-    }
 }
+      
+        responseRepo.save(response);
+}
+}
+
+

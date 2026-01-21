@@ -16,14 +16,14 @@ public class BankServices {
 
     private final TicketRepo ticketRepo;
     private final BankEscalationRepo bankEscalationRepo;
-    private final BankMailService bankMailService;
+   
 
     public BankServices(TicketRepo ticketRepo,
-                        BankEscalationRepo bankEscalationRepo,
-                        BankMailService bankMailService) {
+                        BankEscalationRepo bankEscalationRepo
+                       ) {
         this.ticketRepo = ticketRepo;
         this.bankEscalationRepo = bankEscalationRepo;
-        this.bankMailService = bankMailService;
+       
     }
 
     public void submitToBank(BankEscalationRequest request) {
@@ -63,10 +63,10 @@ public class BankServices {
         ticketRepo.save(ticket);
 
         // Mail must not break DB
-        try {
-            bankMailService.sendToBank(ticket, escalation);
-        } catch (Exception e) {
-            System.err.println("Bank email failed: " + e.getMessage());
-        }
+        
+    }
+    public BankEscalation getByTicketId(Long ticketId) {
+        return bankEscalationRepo.findByTicket_TicketId(ticketId)
+                .orElseThrow(() -> new RuntimeException("Bank escalation not found"));
     }
 }

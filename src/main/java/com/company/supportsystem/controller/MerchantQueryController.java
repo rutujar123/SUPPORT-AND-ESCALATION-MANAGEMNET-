@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.company.supportsystem.services.MerchantQueryExcelService;
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/merchant-query")
 public class MerchantQueryController {

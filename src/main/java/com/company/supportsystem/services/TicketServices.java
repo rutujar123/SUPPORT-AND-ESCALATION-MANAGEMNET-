@@ -59,4 +59,8 @@ public class TicketServices {
 
         return ticketRepo.findByMerchant(merchant);
     }
+    public Ticket getTicketById(Long ticketId) {
+        return ticketRepo.findById(ticketId)
+                .orElseThrow(() -> new RuntimeException("Ticket not found"));
+    }
 }
